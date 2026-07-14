@@ -17,30 +17,35 @@ export async function POST(req: Request) {
     }
 
     // Fetch Context
+    const today = new Date().toLocaleDateString('en-CA')
     const [
       { data: activeGoals },
-      { data: pendingTasks },
-      { data: habits }
+      { data: habits },
+      { data: dailyTop10 },
+      { data: trackerItems }
     ] = await Promise.all([
       supabase.from('goals').select('title, description').eq('status', 'active'),
-      supabase.from('tasks').select('title, priority, scheduled_date').in('status', ['todo', 'in_progress']),
-      supabase.from('habits').select('title, frequency')
+      supabase.from('habits').select('title, frequency'),
+      supabase.from('daily_top_tasks').select('title, is_completed').eq('date', today),
+      supabase.from('personal_tracker').select('title, category, status').in('status', ['ongoing', 'not_started'])
     ])
 
     // Build System Prompt
     const systemPrompt = `
 You are AI-POS, a highly intelligent, supportive, and analytical Personal Operating System Coach. 
-Your goal is to help the user achieve their long-term goals by focusing on their daily tasks and habits.
+Your goal is to help the user achieve their long-term goals by focusing on their daily tasks and habits, while maintaining a healthy work-life balance.
 
 Here is the user's current state:
 Active Goals: ${JSON.stringify(activeGoals)}
-Pending Tasks: ${JSON.stringify(pendingTasks)}
 Configured Habits: ${JSON.stringify(habits)}
+Today's Top 10 Tasks: ${JSON.stringify(dailyTop10)}
+Personal Tracker (Entertainment): ${JSON.stringify(trackerItems)}
 
-When the user asks for daily advice or a daily plan, analyze their tasks and habits. 
-- Prioritize "urgent" or "high" priority tasks.
-- Remind them of habits that align with their goals.
-- Keep your response concise, structured, and highly actionable. Do not be overly chatty.
+When the user asks for advice or a plan, analyze this context:
+- Strongly prioritize "Today's Top 10 Tasks".
+- If they have completed all their Top 10 Tasks, enthusiastically recommend they relax by enjoying an "ongoing" item from their Personal Tracker (e.g. "Great job! You've finished your tasks, how about watching an episode of your ongoing Anime?").
+- If they are heavily focused on their Personal Tracker but ignoring their Top 10 tasks, gently push them to finish their most important work first.
+- Keep your response concise, structured, and highly actionable.
 - Format your response using markdown for readability.
     `
 

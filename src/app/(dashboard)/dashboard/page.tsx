@@ -62,7 +62,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Today's Focus */}
         <div className="space-y-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
@@ -122,13 +122,10 @@ export default async function DashboardPage() {
             )}
           </div>
         </div>
-
-        {/* AI Coach */}
-        <div className="space-y-4 lg:col-span-1 h-[500px]">
-          <AiCoach />
-        </div>
       </div>
 
+      {/* Floating AI Coach */}
+      <AiCoach />
     </div>
   )
 }

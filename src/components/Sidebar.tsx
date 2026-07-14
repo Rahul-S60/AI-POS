@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Target, Activity, CheckSquare, BarChart, LogOut, BrainCircuit } from 'lucide-react'
+import { LayoutDashboard, Target, Activity, CheckSquare, BarChart, LogOut, BrainCircuit, ListChecks, Film } from 'lucide-react'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Daily Top 10', href: '/daily-top-10', icon: ListChecks },
   { name: 'Goals', href: '/goals', icon: Target },
   { name: 'Habits', href: '/habits', icon: Activity },
-  { name: 'Tasks', href: '/tasks', icon: CheckSquare },
+  { name: 'Tracker', href: '/personal-tracker', icon: Film },
   { name: 'Analytics', href: '/analytics', icon: BarChart },
 ]
 
