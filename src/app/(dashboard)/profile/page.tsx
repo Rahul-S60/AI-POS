@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { User, ShieldAlert, Activity, Settings } from 'lucide-react'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 export default async function ProfilePage() {
   const supabase = await createClient()
@@ -85,9 +86,7 @@ export default async function ProfilePage() {
                   <h4 className="font-medium">Dark Mode</h4>
                   <p className="text-sm text-muted-foreground">Toggle application theme appearance.</p>
                 </div>
-                <div className="w-12 h-6 bg-primary rounded-full relative cursor-pointer opacity-50 cursor-not-allowed">
-                  <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" />
-                </div>
+                <ThemeToggle />
               </div>
               <p className="text-xs text-muted-foreground italic">* Preferences coming in a future update.</p>
             </div>
