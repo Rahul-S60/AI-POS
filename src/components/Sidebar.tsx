@@ -19,8 +19,8 @@ export function Sidebar() {
   return (
     <div className="flex h-full w-64 flex-col border-r border-border bg-card/50 backdrop-blur-xl">
       <div className="flex h-16 shrink-0 items-center px-6 gap-3 border-b border-border/50">
-        <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
-          <BrainCircuit className="w-5 h-5 text-primary" />
+        <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30 p-1 overflow-hidden">
+          <img src="/logo.svg" alt="AI-POS Logo" className="w-full h-full object-contain" />
         </div>
         <span className="font-semibold text-lg tracking-tight text-glow">AI-POS</span>
       </div>
