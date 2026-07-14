@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Target, Activity, CheckSquare, BarChart, LogOut, BrainCircuit, ListChecks, Film } from 'lucide-react'
+import { LayoutDashboard, Target, Activity, CheckSquare, BarChart, LogOut, BrainCircuit, ListChecks, Film, User } from 'lucide-react'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -54,15 +54,36 @@ export function Sidebar() {
             </ul>
           </li>
           <li className="mt-auto">
-            <form action="/auth/signout" method="post">
-              <button
-                type="submit"
-                className="group -mx-2 flex w-full gap-x-3 rounded-xl p-3 text-sm leading-6 font-medium text-muted-foreground hover:text-red-400 hover:bg-red-400/10 transition-all duration-200"
-              >
-                <LogOut className="h-5 w-5 shrink-0" aria-hidden="true" />
-                Sign out
-              </button>
-            </form>
+            <ul role="list" className="-mx-2 space-y-1">
+              <li>
+                <Link
+                  href="/profile"
+                  className={`group flex gap-x-3 rounded-xl p-3 text-sm leading-6 font-medium transition-all duration-200 ${
+                    pathname === '/profile'
+                      ? 'bg-primary/10 text-primary border border-primary/20'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                  }`}
+                >
+                  <User
+                    className={`h-5 w-5 shrink-0 ${
+                      pathname === '/profile' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    }`}
+                  />
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <form action="/auth/signout" method="post">
+                  <button
+                    type="submit"
+                    className="group flex w-full gap-x-3 rounded-xl p-3 text-sm leading-6 font-medium text-muted-foreground hover:text-red-400 hover:bg-red-400/10 transition-all duration-200"
+                  >
+                    <LogOut className="h-5 w-5 shrink-0" aria-hidden="true" />
+                    Sign out
+                  </button>
+                </form>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
