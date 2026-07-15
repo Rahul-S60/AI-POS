@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { LayoutDashboard, Target, Activity, CheckSquare, BarChart, LogOut, BrainCircuit, ListChecks, Film, User } from 'lucide-react'
 
-const navigation = [
+export const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Daily Top 10', href: '/daily-top-10', icon: ListChecks },
   { name: 'Goals', href: '/goals', icon: Target },
