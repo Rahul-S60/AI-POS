@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, LogOut, User } from 'lucide-react'
@@ -8,10 +9,61 @@ import { navigation } from '@/components/Sidebar'
 
 export function MobileSidebar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Close sidebar when clicking a link
   const closeSidebar = () => setIsOpen(false)
+
+  // Prevent background scrolling when sidebar is open
+  useEffect(() => {
+    const htmlEl = document.documentElement
+    const bodyEl = document.body
+    const mainEl = document.querySelector('main')
+
+    if (isOpen) {
+      // Aggressive scroll locking for all possible containers
+      htmlEl.style.overflow = 'hidden'
+      htmlEl.style.overscrollBehavior = 'none'
+      bodyEl.style.overflow = 'hidden'
+      bodyEl.style.position = 'fixed'
+      bodyEl.style.width = '100%'
+      bodyEl.style.height = '100%'
+      if (mainEl) {
+        mainEl.style.overflow = 'hidden'
+        mainEl.style.touchAction = 'none'
+      }
+    } else {
+      // Restore
+      htmlEl.style.overflow = ''
+      htmlEl.style.overscrollBehavior = ''
+      bodyEl.style.overflow = ''
+      bodyEl.style.position = ''
+      bodyEl.style.width = ''
+      bodyEl.style.height = ''
+      if (mainEl) {
+        mainEl.style.overflow = ''
+        mainEl.style.touchAction = ''
+      }
+    }
+    
+    return () => {
+      htmlEl.style.overflow = ''
+      htmlEl.style.overscrollBehavior = ''
+      bodyEl.style.overflow = ''
+      bodyEl.style.position = ''
+      bodyEl.style.width = ''
+      bodyEl.style.height = ''
+      if (mainEl) {
+        mainEl.style.overflow = ''
+        mainEl.style.touchAction = ''
+      }
+    }
+  }, [isOpen])
 
   return (
     <>
@@ -23,20 +75,23 @@ export function MobileSidebar() {
         <Menu className="w-6 h-6" />
       </button>
 
-      {/* Overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm md:hidden animate-in fade-in duration-200"
-          onClick={closeSidebar}
-        />
-      )}
+      {/* Overlay and Drawer via Portal to escape header's backdrop-filter containing block */}
+      {mounted && createPortal(
+        <>
+          {/* Overlay */}
+          {isOpen && (
+            <div 
+              className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-sm md:hidden animate-in fade-in duration-200 touch-none"
+              onClick={closeSidebar}
+            />
+          )}
 
-      {/* Drawer */}
-      <div 
-        className={`fixed inset-y-0 left-0 z-50 w-3/4 max-w-sm bg-card border-r border-border shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden flex flex-col ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
+          {/* Drawer */}
+          <div 
+            className={`fixed inset-y-0 left-0 z-[101] w-[280px] max-w-[80vw] bg-card/95 backdrop-blur-xl border-r border-border shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden flex flex-col touch-none ${
+              isOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
+          >
         <div className="flex h-16 shrink-0 items-center justify-between px-6 border-b border-border/50">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30 p-1 overflow-hidden">
@@ -52,8 +107,8 @@ export function MobileSidebar() {
           </button>
         </div>
 
-        <nav className="flex flex-1 flex-col px-4 py-6 overflow-y-auto">
-          <ul role="list" className="flex flex-1 flex-col gap-y-2">
+        <nav className="flex flex-1 flex-col px-4 overflow-hidden">
+          <ul role="list" className="flex flex-1 flex-col gap-y-2 pt-6">
             <li>
               <ul role="list" className="-mx-2 space-y-1">
                 {navigation.map((item) => {
@@ -82,7 +137,7 @@ export function MobileSidebar() {
                 })}
               </ul>
             </li>
-            <li className="mt-auto pt-6">
+            <li className="mt-auto pb-6 pt-4 border-t border-border/50">
               <ul role="list" className="-mx-2 space-y-1">
                 <li>
                   <Link
@@ -118,6 +173,9 @@ export function MobileSidebar() {
           </ul>
         </nav>
       </div>
+        </>,
+        document.body
+      )}
     </>
   )
 }

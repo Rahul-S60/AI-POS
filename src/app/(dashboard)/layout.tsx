@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-[100dvh] overflow-hidden bg-background">
       {/* Background decorations for dashboard */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-[250px] w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none" />

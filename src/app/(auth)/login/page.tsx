@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default async function LoginPage({ searchParams }: { searchParams: { error?: string, message?: string } }) {
   const params = await searchParams; // In Next.js 15, searchParams is a promise
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden bg-background">
+    <div className="min-h-[100dvh] w-full flex items-center justify-center p-4 relative overflow-hidden bg-background">
       {/* Back to Home Link */}
       <Link 
         href="/" 

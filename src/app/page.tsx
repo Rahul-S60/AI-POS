@@ -13,7 +13,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-background relative overflow-hidden flex flex-col">
+    <main className="min-h-[100dvh] bg-background relative overflow-hidden flex flex-col">
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background pointer-events-none" />
       
