@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { ArrowRight, Brain, Target, Sparkles, Activity } from 'lucide-react'
+import { InstallPWAButton } from '@/components/InstallPWAButton'
 
 export default async function Home() {
   const supabase = await createClient()
@@ -68,12 +69,7 @@ export default async function Home() {
             Create Free Account
             <ArrowRight className="w-5 h-5" />
           </Link>
-          <Link 
-            href="/login" 
-            className="inline-flex items-center justify-center gap-2 bg-secondary/50 backdrop-blur-md border border-border px-8 py-4 rounded-full text-lg font-semibold hover:bg-secondary/80 transition-all"
-          >
-            Sign In
-          </Link>
+          <InstallPWAButton />
         </div>
       </div>
 
