@@ -10,11 +10,15 @@ AI-POS is a next-generation productivity application designed to be your Persona
 - **AI Coaching**: Powered by **Gemini 3.5 Flash**, your AI coach reads your schedule, dynamically prioritizes your tasks, and pushes you to succeed right from your dashboard.
 - **Daily Analytics**: Server-side aggregated metrics that show your completion percentages and active streaks at a glance.
 - **Stunning UI**: Premium glassmorphism aesthetics, dynamic gradients, and smooth micro-animations built with Tailwind CSS.
+- **PWA Ready**: Install AI-POS as an app on your phone or desktop for quick access.
+- **Dark/Light Mode**: Full theming support to match your system preferences.
+- **Mobile Responsive**: Fully optimized for mobile devices with a responsive sidebar and drawer.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router, Server Actions)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Server Actions)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Theming**: `next-themes` for Dark/Light mode
 - **Database & Auth**: [Supabase](https://supabase.com/) (PostgreSQL, Google OAuth)
 - **AI Integration**: [Google Gemini 3.5 Flash](https://ai.google.dev/) via `@ai-sdk/google`
 - **Validation**: [Zod](https://zod.dev/)
@@ -67,3 +71,4 @@ AI-POS is a next-generation productivity application designed to be your Persona
 
 ## 📝 License
 This project is open-source and available under the MIT License.
+/
